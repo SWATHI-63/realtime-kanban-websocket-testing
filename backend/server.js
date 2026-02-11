@@ -46,8 +46,35 @@ const io = new Server(server, {
   cors: { origin: "*" }
 });
 
-// In-memory task storage
+// Persistent task storage
+const TASKS_FILE = path.join(__dirname, "tasks.json");
+
+// Load tasks from file
 let tasks = [];
+function loadTasks() {
+  try {
+    if (fs.existsSync(TASKS_FILE)) {
+      const data = fs.readFileSync(TASKS_FILE, "utf8");
+      tasks = JSON.parse(data);
+      console.log(`Loaded ${tasks.length} tasks from storage`);
+    }
+  } catch (error) {
+    console.error("Error loading tasks:", error.message);
+    tasks = [];
+  }
+}
+
+// Save tasks to file
+function saveTasks() {
+  try {
+    fs.writeFileSync(TASKS_FILE, JSON.stringify(tasks, null, 2), "utf8");
+  } catch (error) {
+    console.error("Error saving tasks:", error.message);
+  }
+}
+
+// Load tasks on server start
+loadTasks();
 
 // File upload endpoint
 app.post("/upload", upload.single("file"), (req, res) => {
@@ -81,6 +108,7 @@ io.on("connection", (socket) => {
       createdAt: new Date().toISOString()
     };
     tasks.push(newTask);
+    saveTasks();
     io.emit("sync:tasks", tasks);
     console.log("Task created:", newTask.id);
   });
@@ -90,6 +118,7 @@ io.on("connection", (socket) => {
     tasks = tasks.map(t =>
       t.id === updatedTask.id ? { ...t, ...updatedTask } : t
     );
+    saveTasks();
     io.emit("sync:tasks", tasks);
     console.log("Task updated:", updatedTask.id);
   });
@@ -99,6 +128,7 @@ io.on("connection", (socket) => {
     tasks = tasks.map(t =>
       t.id === taskId ? { ...t, status: newStatus } : t
     );
+    saveTasks();
     io.emit("sync:tasks", tasks);
     console.log("Task moved:", taskId, "to", newStatus);
   });
@@ -106,6 +136,7 @@ io.on("connection", (socket) => {
   // Delete task
   socket.on("task:delete", (id) => {
     tasks = tasks.filter(t => t.id !== id);
+    saveTasks();
     io.emit("sync:tasks", tasks);
     console.log("Task deleted:", id);
   });
