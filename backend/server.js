@@ -95,6 +95,12 @@ io.on("connection", (socket) => {
   // Send all tasks to newly connected client
   socket.emit("sync:tasks", tasks);
 
+  // Handle explicit task request
+  socket.on("request:tasks", () => {
+    socket.emit("sync:tasks", tasks);
+    console.log("Tasks requested by:", socket.id);
+  });
+
   // Create new task
   socket.on("task:create", (task) => {
     const newTask = {
