@@ -248,8 +248,21 @@ Edit `backend/server.js`:
 - Accepted file types: `jpeg, jpg, png, gif, pdf, doc, docx`
 
 ### Frontend Configuration
-Edit `frontend/src/socket/socket.js`:
-- Socket URL: `http://localhost:4000`
+
+**Development:**
+The frontend automatically connects to `http://localhost:4000` for the backend.
+
+**Production/Deployment:**
+Set the `VITE_BACKEND_URL` environment variable to your deployed backend URL:
+
+```bash
+# Example for deployment
+VITE_BACKEND_URL=https://your-backend.herokuapp.com
+```
+
+For deployment platforms:
+- **Vercel/Netlify**: Add `VITE_BACKEND_URL` in environment variables settings
+- **GitHub Pages**: Create `.env.production` file with `VITE_BACKEND_URL=your-backend-url`
 
 Edit `frontend/playwright.config.js`:
 - Base URL: `http://localhost:5174`

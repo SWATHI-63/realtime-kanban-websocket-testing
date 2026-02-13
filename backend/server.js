@@ -5,6 +5,10 @@ const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
 
+// Configuration
+const PORT = process.env.PORT || 4000;
+const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -82,7 +86,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
     return res.status(400).json({ error: "No file uploaded" });
   }
   res.json({ 
-    url: `http://localhost:4000/uploads/${req.file.filename}`,
+    url: `${BASE_URL}/uploads/${req.file.filename}`,
     name: req.file.originalname,
     size: req.file.size
   });
@@ -152,6 +156,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(4000, () => {
-  console.log("Backend running on http://localhost:4000");
+server.listen(PORT, () => {
+  console.log(`Backend running on ${BASE_URL}`);
 });
