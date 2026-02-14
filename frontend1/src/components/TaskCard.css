@@ -1,0 +1,149 @@
+.task-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
+  border: 1px solid #f1f5f9;
+  transition: all 0.15s ease;
+}
+
+.task-card:hover {
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.task-title {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  border: none;
+  background: transparent;
+  padding: 4px 6px;
+  border-radius: 6px;
+  outline: none;
+  transition: background 0.15s;
+}
+
+.task-title:focus {
+  background: #f8fafc;
+}
+
+.delete-btn {
+  background: none;
+  color: #cbd5e1;
+  border: none;
+  border-radius: 6px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  background: #fef2f2;
+  color: #ef4444;
+}
+
+.task-description {
+  width: 100%;
+  border: 1.5px solid #f1f5f9;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  font-family: inherit;
+  font-size: 13px;
+  color: #475569;
+  resize: vertical;
+  outline: none;
+  background: #fafbfc;
+  transition: all 0.15s;
+}
+
+.task-description:focus {
+  border-color: #6366f1;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08);
+}
+
+.task-meta {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.task-field {
+  flex: 1;
+}
+
+.task-field label {
+  display: block;
+  font-size: 11px;
+  color: #94a3b8;
+  margin-bottom: 3px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.task-field select {
+  width: 100%;
+  padding: 5px 8px;
+  border: 1.5px solid #f1f5f9;
+  border-radius: 6px;
+  font-size: 12px;
+  background: #fafbfc;
+  cursor: pointer;
+  outline: none;
+  color: #334155;
+  font-weight: 500;
+  transition: border-color 0.15s;
+}
+
+.task-field select:focus {
+  border-color: #6366f1;
+}
+
+.task-attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.attachment {
+  max-width: 100%;
+}
+
+.attachment-preview {
+  max-width: 100%;
+  max-height: 120px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.attachment a {
+  color: #6366f1;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.attachment a:hover {
+  text-decoration: underline;
+}
